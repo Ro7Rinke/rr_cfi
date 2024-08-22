@@ -1,0 +1,94 @@
+CREATE TABLE category (
+    id SERIAL PRIMARY KEY,
+    title TEXT NOT NULL,
+    description TEXT,
+    color TEXT,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    modified_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    status BOOLEAN NOT NULL DEFAULT TRUE
+);
+
+CREATE TABLE "user" (
+    id SERIAL PRIMARY KEY
+    -- Outros campos que você precisa para a tabela de usuários
+);
+
+CREATE TABLE tag (
+    id SERIAL PRIMARY KEY,
+    user_id INTEGER NOT NULL REFERENCES "user"(id),
+    title TEXT NOT NULL,
+    description TEXT,
+    color TEXT,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    modified_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    status BOOLEAN NOT NULL DEFAULT TRUE
+);
+
+CREATE TABLE transaction_type (
+    id SERIAL PRIMARY KEY,
+    title TEXT NOT NULL,
+    is_debit BOOLEAN NOT NULL,
+    reference TEXT,
+    is_paid BOOLEAN NOT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    modified_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    status BOOLEAN NOT NULL DEFAULT TRUE
+);
+
+CREATE TABLE entry (
+    id SERIAL PRIMARY KEY,
+    title TEXT NOT NULL,
+    description TEXT,
+    date TIMESTAMP NOT NULL,
+    is_periodic BOOLEAN NOT NULL,
+    total_value NUMERIC(15,4) NOT NULL,
+    total_installments INTEGER NOT NULL,
+    transaction_type_id INTEGER NOT NULL REFERENCES transaction_type(id),
+    category_id INTEGER NOT NULL REFERENCES category(id),
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    modified_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    status BOOLEAN NOT NULL DEFAULT TRUE
+);
+
+CREATE TABLE entry_tag (
+    id SERIAL PRIMARY KEY,
+    entry_id INTEGER NOT NULL REFERENCES entry(id),
+    tag_id INTEGER NOT NULL REFERENCES tag(id),
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    modified_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    status BOOLEAN NOT NULL DEFAULT TRUE
+);
+
+CREATE TABLE periodic_type (
+    id SERIAL PRIMARY KEY,
+    title TEXT NOT NULL,
+    reference TEXT,
+    value INTEGER NOT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    modified_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    status BOOLEAN NOT NULL DEFAULT TRUE
+);
+
+CREATE TABLE periodic_entry (
+    id SERIAL PRIMARY KEY,
+    entry_id INTEGER REFERENCES entry(id),
+    start_date TIMESTAMP NOT NULL,
+    end_date TIMESTAMP,
+    reference_day INTEGER,
+    reference_month INTEGER,
+    reference_year INTEGER,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    modified_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    status BOOLEAN NOT NULL DEFAULT TRUE
+);
+
+CREATE TABLE installment (
+    id SERIAL PRIMARY KEY,
+    entry_id INTEGER NOT NULL REFERENCES entry(id),
+    value NUMERIC(15,4) NOT NULL,
+    reference_date TIMESTAMP NOT NULL,
+    installment_number INTEGER NOT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    modified_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    status BOOLEAN NOT NULL DEFAULT TRUE
+);
