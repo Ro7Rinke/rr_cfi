@@ -68,6 +68,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'cfi.middleware.CurrentUserMiddleware'
 ]
 
 ROOT_URLCONF = 'rr_cfi.urls'
@@ -161,5 +162,5 @@ SIMPLE_JWT = {
     'BLACKLIST_AFTER_ROTATION': True,
 }
 
-VERSION = 'v0.2.2'
+VERSION = 'v0.3.0'
 BUILD_NUMBER = os.getenv('BUILD_NUMBER', 0)
