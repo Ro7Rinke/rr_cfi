@@ -26,9 +26,9 @@ class Tag(models.Model):
 
 class TransactionType(models.Model):
     title = models.CharField(max_length=255)
-    is_debit = models.BooleanField()
+    is_debit = models.BooleanField() #se está recebendo ou pagando o valor
     reference = models.CharField(max_length=255, blank=True, null=True)
-    is_paid = models.BooleanField()
+    is_paid = models.BooleanField() #Valor ja foi pago, como um pix por exemplo
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
     status = models.BooleanField(default=True)
