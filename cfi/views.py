@@ -38,6 +38,7 @@ class TagViewSet(viewsets.ModelViewSet):
 class TransactionTypeViewSet(viewsets.ModelViewSet):
     queryset = TransactionType.objects.all()
     serializer_class = TransactionTypeSerializer
+    permission_classes = [IsAuthenticated, IsAdminOrReadOnly]
 
 
 # ViewSet para Entry
@@ -56,6 +57,7 @@ class EntryTagViewSet(viewsets.ModelViewSet):
 class PeriodicTypeViewSet(viewsets.ModelViewSet):
     queryset = PeriodicType.objects.all()
     serializer_class = PeriodicTypeSerializer
+    permission_classes = [IsAuthenticated, IsAdminOrReadOnly]
 
 
 # ViewSet para PeriodicEntry
