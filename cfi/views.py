@@ -32,6 +32,7 @@ class CategoryViewSet(viewsets.ModelViewSet):
 class TagViewSet(viewsets.ModelViewSet):
     queryset = Tag.objects.all()
     serializer_class = TagSerializer
+    permission_classes = [IsAuthenticated]
 
 
 # ViewSet para TransactionType
@@ -45,12 +46,14 @@ class TransactionTypeViewSet(viewsets.ModelViewSet):
 class EntryViewSet(viewsets.ModelViewSet):
     queryset = Entry.objects.all()
     serializer_class = EntrySerializer
+    permission_classes = [IsAuthenticated]
 
 
 # ViewSet para EntryTag
 class EntryTagViewSet(viewsets.ModelViewSet):
     queryset = EntryTag.objects.all()
     serializer_class = EntryTagSerializer
+    permission_classes = [IsAuthenticated]
 
 
 # ViewSet para PeriodicType
@@ -64,9 +67,11 @@ class PeriodicTypeViewSet(viewsets.ModelViewSet):
 class PeriodicEntryViewSet(viewsets.ModelViewSet):
     queryset = PeriodicEntry.objects.all()
     serializer_class = PeriodicEntrySerializer
+    permission_classes = [IsAuthenticated]
 
 
 # ViewSet para Installment
 class InstallmentViewSet(viewsets.ModelViewSet):
     queryset = Installment.objects.all()
     serializer_class = InstallmentSerializer
+    permission_classes = [IsAuthenticated]
