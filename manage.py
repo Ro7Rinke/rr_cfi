@@ -12,7 +12,7 @@ def main():
     port = os.getenv('DJANGO_PORT', '8000')  # Valor padrão se a variável não estiver definida
 
     """Run administrative tasks."""
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'CredenShow.settings')
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'rr_cfi.settings')
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:
