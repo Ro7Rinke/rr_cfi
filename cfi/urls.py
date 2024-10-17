@@ -2,6 +2,7 @@ from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from .views import (
     CategoryViewSet,
+    InstallmentsListByMonthYearView,
     TagViewSet,
     TransactionTypeViewSet,
     EntryViewSet,
@@ -24,4 +25,5 @@ router.register(r'installments', InstallmentViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
+    path('/installment/list-month-year', InstallmentsListByMonthYearView.as_view(), name='installment-list-month-year'),
 ]
