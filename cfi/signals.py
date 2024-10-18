@@ -11,6 +11,7 @@ def afterSaveEntry(sender, instance, created, **kwargs):
     if(created):
         status, error = generateInstallmentsByEntry(instance)
         if not status:
+            instance.delete()
             raise ValidationError(error)
         
         print('Entry created')
