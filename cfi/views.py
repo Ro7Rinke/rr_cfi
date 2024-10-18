@@ -50,6 +50,14 @@ class EntryViewSet(viewsets.ModelViewSet):
     serializer_class = EntrySerializer
     permission_classes = [IsAuthenticated]
 
+    def get_serializer(self, *args, **kwargs):
+        if self.request.method in ['POST', 'PUT', 'PATCH']:
+            data = kwargs.get('data', {})
+            if isinstance(data, dict):
+                data['id_user'] = self.request.user.id
+            kwargs['data'] = data
+
+        return super().get_serializer(*args, **kwargs)
 
 # ViewSet para EntryTag
 class EntryTagViewSet(viewsets.ModelViewSet):
