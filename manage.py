@@ -1,10 +1,13 @@
 #!/usr/bin/env python
 """Django's command-line utility for administrative tasks."""
 import os
+import subprocess
 import sys
 from dotenv import load_dotenv
 
 def main():
+    subprocess.run(['python', 'data/scripts/updateBuild.py'])
+
     # Carregue o arquivo .env
     load_dotenv()
 
