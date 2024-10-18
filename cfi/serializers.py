@@ -31,6 +31,7 @@ class TransactionTypeSerializer(serializers.ModelSerializer):
 
 # Serializer para Entry
 class EntrySerializer(serializers.ModelSerializer):
+    total_value = serializers.DecimalField(max_digits=15, decimal_places=4, coerce_to_string=False)
     class Meta:
         model = Entry
         fields = '__all__'  # Inclui todos os campos do modelo Entry
@@ -59,6 +60,12 @@ class PeriodicEntrySerializer(serializers.ModelSerializer):
 
 # Serializer para Installment
 class InstallmentSerializer(serializers.ModelSerializer):
+    value = serializers.DecimalField(max_digits=15, decimal_places=4, coerce_to_string=False)
+    entry = serializers.SerializerMethodField()
     class Meta:
         model = Installment
         fields = '__all__'  # Inclui todos os campos do modelo Installment
+
+    def get_entry(self, obj):
+        serializer = EntrySerializer(obj.id_entry)
+        return serializer.data
