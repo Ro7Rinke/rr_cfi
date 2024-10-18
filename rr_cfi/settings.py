@@ -70,7 +70,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'cfi.middleware.CurrentUserMiddleware'
+    'cfi.middleware.CurrentUserMiddleware',
+    'cfi.middleware.AddVersionToHeaderMiddleware',
 ]
 
 ROOT_URLCONF = 'rr_cfi.urls'
@@ -180,5 +181,5 @@ CORS_ALLOWED_ORIGINS = [
 ]
 # CORS_ALLOW_CREDENTIALS = True
 
-VERSION = 'v0.5.7'
+VERSION = 'v0.5.8'
 BUILD_NUMBER = os.getenv('BUILD_NUMBER', 0)
