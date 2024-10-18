@@ -22,13 +22,13 @@ def createInstallments(installments):
                 serializer = InstallmentSerializer(data=installment_data)
                 if serializer.is_valid(raise_exception=True):
                     serializer.save()  # Salva a parcela no banco de dados
-        return True  # Retorna True se todas as parcelas foram salvas com sucesso
+        return (True, None ) # Retorna True se todas as parcelas foram salvas com sucesso
 
     except ValidationError as e:
-        return False, str(e)  # Retorna False e o erro de validação
+        return (False, str(e))  # Retorna False e o erro de validação
 
     except Exception as e:
-        return False, str(e)  # Retorna False e qualquer outro erro
+        return (False, str(e))  # Retorna False e qualquer outro erro
 
 
 def generateInstallmentsByEntry(entry):
@@ -36,15 +36,13 @@ def generateInstallmentsByEntry(entry):
 
     installment_value, extra_value = calculateInstallmentValue(entry.total_value, entry.total_installments)
     
-    try:
-        reference_date = parseDate(entry.date)
-    except ValueError:
-        raise ValueError("Invalid entry date")
+    reference_date = entry.date
 
     for installment_number in range(1, entry.total_installments+1):
         installment = {}
+        installment['id_entry'] = entry.id
         installment['installment_number'] = installment_number
-        installment['installment_value'] = installment_value + extra_value if installment_number == 1 else installment_value
+        installment['value'] = installment_value + extra_value if installment_number == 1 else installment_value
         installment['reference_date'] = reference_date
 
         reference_date += relativedelta(months=1)
