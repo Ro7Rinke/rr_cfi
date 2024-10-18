@@ -97,7 +97,7 @@ class InstallmentsListByMonthYearView(generics.ListAPIView):
 
         # Verifique se os parâmetros foram fornecidos
         if month is None or year is None:
-            return Response({"error": "Month and year must be provided."}, status=status.HTTP_400_BAD_REQUEST)
+            raise ValueError("Month and year must be provided.")  # Levanta uma exceção
 
         try:
             month = int(month)
@@ -105,10 +105,10 @@ class InstallmentsListByMonthYearView(generics.ListAPIView):
 
             # Verifica se o mês está dentro do intervalo válido
             if month < 1 or month > 12:
-                return Response({"error": "Month must be between 1 and 12."}, status=status.HTTP_400_BAD_REQUEST)
+                raise ValueError("Month must be between 1 and 12.")  # Levanta uma exceção
 
-        except ValueError:
-            return Response({"error": "Invalid month or year."}, status=status.HTTP_400_BAD_REQUEST)
+        except ValueError as e:
+            raise ValueError(str(e))  # Levanta uma exceção com a mensagem de erro
 
         # Calcular o primeiro e o último dia do mês
         start_date = timezone.datetime(year, month, 1)
@@ -117,11 +117,17 @@ class InstallmentsListByMonthYearView(generics.ListAPIView):
         else:
             end_date = timezone.datetime(year, month + 1, 1)  # Início do próximo mês
 
+        start_date = timezone.make_aware(start_date)
+        end_date = timezone.make_aware(end_date)
+
         id_user = self.request.user.id
 
         # Filtrar installments com base na data de referência
         return self.queryset.filter(reference_date__gte=start_date, reference_date__lt=end_date, id_entry__id_user=id_user)
 
     def get(self, request, *args, **kwargs):
-        # Chama o método get_queryset e retorna uma resposta apropriada
-        return super().get(request, *args, **kwargs)
+        try:
+            # Chama o método get_queryset e retorna uma resposta apropriada
+            return super().get(request, *args, **kwargs)
+        except ValueError as e:
+            return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)  # Retorna uma resposta de erro
