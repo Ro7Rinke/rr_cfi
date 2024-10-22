@@ -4,6 +4,7 @@ from .views import (
     CategoryViewSet,
     CheckTokenView,
     InstallmentsListByMonthYearView,
+    RegisterView,
     TagViewSet,
     TransactionTypeViewSet,
     EntryViewSet,
@@ -28,4 +29,5 @@ urlpatterns = [
     path('', include(router.urls)),
     path('installments/list-month-year', InstallmentsListByMonthYearView.as_view(), name='installment-list-month-year'),
     path('token/check', CheckTokenView.as_view(), name='token-check'),
+    path('register/', RegisterView.as_view(), name='register'),
 ]
