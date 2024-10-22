@@ -30,7 +30,9 @@ SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'django-insecure-%b_xko+5p&*@hwj#35-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DJANGO_DEBUG', False)
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'ro7rinke.com.br'
+]
 
 
 # Application definition
@@ -180,10 +182,8 @@ CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000',
     'http://192.168.3.77:3000',
     'https://cfi.ro7rinke.com.br',
-    'https://ro7rinke.com.br:8011',
-    'http://ro7rinke.com.br:8011'
 ]
 # CORS_ALLOW_CREDENTIALS = True
 
-VERSION = 'v0.6.5'
+VERSION = 'v0.6.6'
 BUILD_NUMBER = os.getenv('BUILD_NUMBER', 0)
