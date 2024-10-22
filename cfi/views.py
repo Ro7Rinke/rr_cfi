@@ -131,3 +131,9 @@ class InstallmentsListByMonthYearView(generics.ListAPIView):
             return super().get(request, *args, **kwargs)
         except ValueError as e:
             return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)  # Retorna uma resposta de erro
+        
+class CheckTokenView(generics.ListAPIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request, *args, **kwargs):
+        return Response(True, status=status.HTTP_200_OK)

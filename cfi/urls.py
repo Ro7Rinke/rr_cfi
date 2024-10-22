@@ -2,6 +2,7 @@ from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from .views import (
     CategoryViewSet,
+    CheckTokenView,
     InstallmentsListByMonthYearView,
     TagViewSet,
     TransactionTypeViewSet,
@@ -26,4 +27,5 @@ router.register(r'installments', InstallmentViewSet)
 urlpatterns = [
     path('', include(router.urls)),
     path('installments/list-month-year', InstallmentsListByMonthYearView.as_view(), name='installment-list-month-year'),
+    path('token/check', CheckTokenView.as_view(), name='token-check'),
 ]
