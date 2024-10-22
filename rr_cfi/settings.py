@@ -180,8 +180,7 @@ CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000',
     'http://192.168.3.77:3000',
     'https://cfi.ro7rinke.com.br',
-    'https://ro7rinke.com.br',
-    'http://ro7rinke.com.br'
+    'ro7rinke.com.br'
 ]
 # CORS_ALLOW_CREDENTIALS = True
 
