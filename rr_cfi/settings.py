@@ -179,8 +179,9 @@ SIMPLE_JWT = {
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000',
     'http://192.168.3.77:3000',
+    'https://cfi.ro7rinke.com.br',
 ]
 # CORS_ALLOW_CREDENTIALS = True
 
-VERSION = 'v0.6.1'
+VERSION = 'v0.6.2'
 BUILD_NUMBER = os.getenv('BUILD_NUMBER', 0)
