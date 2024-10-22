@@ -34,6 +34,21 @@ ALLOWED_HOSTS = [
     'ro7rinke.com.br'
 ]
 
+# Habilite o uso de HTTPS
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+# Ative o redirecionamento HTTP para HTTPS
+SECURE_SSL_REDIRECT = True
+
+# Opcional: Habilite o uso de cookies seguros
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+
+# Opcional: Habilite o HSTS (Strict Transport Security)
+SECURE_HSTS_SECONDS = 3600  # Tempo em segundos
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+SECURE_HSTS_PRELOAD = True
+
 
 # Application definition
 
@@ -185,5 +200,5 @@ CORS_ALLOWED_ORIGINS = [
 ]
 # CORS_ALLOW_CREDENTIALS = True
 
-VERSION = 'v0.6.6'
+VERSION = 'v0.7.0'
 BUILD_NUMBER = os.getenv('BUILD_NUMBER', 0)
