@@ -31,23 +31,25 @@ SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'django-insecure-%b_xko+5p&*@hwj#35-
 DEBUG = os.getenv('DJANGO_DEBUG', False)
 
 ALLOWED_HOSTS = [
-    'ro7rinke.com.br'
+    'ro7rinke.com.br',
+    'localhost'
 ]
 
-# Habilite o uso de HTTPS
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+if not DEBUG:
+    # Habilite o uso de HTTPS
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
-# Ative o redirecionamento HTTP para HTTPS
-SECURE_SSL_REDIRECT = True
+    # Ative o redirecionamento HTTP para HTTPS
+    SECURE_SSL_REDIRECT = True
 
-# Opcional: Habilite o uso de cookies seguros
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
+    # Opcional: Habilite o uso de cookies seguros
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
 
-# Opcional: Habilite o HSTS (Strict Transport Security)
-SECURE_HSTS_SECONDS = 3600  # Tempo em segundos
-SECURE_HSTS_INCLUDE_SUBDOMAINS = True
-SECURE_HSTS_PRELOAD = True
+    # Opcional: Habilite o HSTS (Strict Transport Security)
+    SECURE_HSTS_SECONDS = 3600  # Tempo em segundos
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+    SECURE_HSTS_PRELOAD = True
 
 
 # Application definition
@@ -194,11 +196,11 @@ SIMPLE_JWT = {
 }
 
 CORS_ALLOWED_ORIGINS = [
-    'http://localhost:3000',
-    'http://192.168.3.77:3000',
+    'http://localhost:8012',
+    'http://192.168.3.77:8012',
     'https://cfi.ro7rinke.com.br',
 ]
 # CORS_ALLOW_CREDENTIALS = True
 
-VERSION = 'v0.7.0'
+VERSION = 'v0.7.1'
 BUILD_NUMBER = os.getenv('BUILD_NUMBER', 0)
