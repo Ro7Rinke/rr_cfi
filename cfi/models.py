@@ -8,6 +8,7 @@ class Category(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
     status = models.BooleanField(default=True)
+    is_default = models.BooleanField(default=False)
 
     def __str__(self):
         return self.title
@@ -32,7 +33,7 @@ class TransactionType(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
     status = models.BooleanField(default=True)
-    default = models.BooleanField(default=False)
+    is_default = models.BooleanField(default=False)
 
     def __str__(self):
         return self.title
