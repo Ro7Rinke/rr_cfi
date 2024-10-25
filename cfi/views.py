@@ -2,6 +2,7 @@ from rest_framework import viewsets, generics, status
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
+from rest_framework.exceptions import ValidationError
 from django.utils import timezone
 from .permissions import IsAdminOrReadOnly
 from .models import (
@@ -87,6 +88,22 @@ class InstallmentViewSet(viewsets.ModelViewSet):
     queryset = Installment.objects.all()
     serializer_class = InstallmentSerializer
     permission_classes = [IsAuthenticated]
+
+class InstallmentsListByEntry(generics.ListAPIView):
+    serializer_class = InstallmentSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        # Recupera o usuário autenticado
+        user = self.request.user
+        
+        # Recupera o id_entry da URL ou dos parâmetros de consulta
+        id_entry = self.kwargs.get('id_entry', None) or self.request.query_params.get('id_entry', None)
+
+        if not id_entry:
+            raise ValidationError({'detail': 'O parâmetro "id_entry" é obrigatório.'})
+        
+        return Installment.objects.filter(id_entry=id_entry)
 
 class InstallmentsListByMonthYearView(generics.ListAPIView):
     queryset = Installment.objects.all()

@@ -3,6 +3,7 @@ from rest_framework.routers import DefaultRouter
 from .views import (
     CategoryViewSet,
     CheckTokenView,
+    InstallmentsListByEntry,
     InstallmentsListByMonthYearView,
     RegisterView,
     TagViewSet,
@@ -28,6 +29,7 @@ router.register(r'installments', InstallmentViewSet)
 urlpatterns = [
     path('', include(router.urls)),
     path('installments/list-month-year', InstallmentsListByMonthYearView.as_view(), name='installment-list-month-year'),
+    path('installments/entry/<int:id_entry>/', InstallmentsListByEntry.as_view(), name='installments-entry'),
     path('token/check', CheckTokenView.as_view(), name='token-check'),
     path('register/', RegisterView.as_view(), name='register'),
 ]
